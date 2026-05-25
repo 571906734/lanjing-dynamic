@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Admin - {{ title|default('Dashboard') }} - {{ super() }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-wrapper">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="admin-brand">
+            <h3>LanJing Admin</h3>
+        </div>
+        <nav class="admin-nav">
+            <a href="{{ url_for('admin.dashboard') }}"      class="{% if request.endpoint == 'admin.dashboard' %}active{% endif %}">Dashboard</a>
+            <a href="{{ url_for('admin.manage_cases') }}"    class="{% if request.endpoint == 'admin.manage_cases' %}active{% endif %}">Cases</a>
+            <a href="{{ url_for('admin.manage_news') }}"     class="{% if request.endpoint == 'admin.manage_news' %}active{% endif %}">News</a>
+            <a href="{{ url_for('admin.view_quotes') }}"     class="{% if request.endpoint == 'admin.view_quotes' or request.endpoint == 'admin.view_quote' or request.endpoint == 'admin.update_quote_status' or request.endpoint == 'admin.delete_quote' %}active{% endif %}">Quotes</a>
+            <a href="{{ url_for('admin.manage_products') }}" class="{% if request.endpoint == 'admin.manage_products' or request.endpoint == 'admin.manage_categories' or request.endpoint == 'admin.edit_category' %}active{% endif %}">Products</a>
+            <a href="{{ url_for('admin.manage_users') }}"    class="{% if request.endpoint == 'admin.manage_users' or request.endpoint == 'admin.add_user' %}active{% endif %}">Users</a>
+            <a href="{{ url_for('admin.manage_settings') }}" class="{% if request.endpoint == 'admin.manage_settings' %}active{% endif %}">Settings</a>
+        </nav>
+        <div class="admin-sidebar-footer">
+            <a href="{{ url_for('main.index') }}">View Site</a>
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-topbar">
+            <div class="admin-topbar-left">
+                <button class="admin-menu-toggle">&#9776;</button>
+                <h2>{% block admin_title %}Dashboard{% endblock %}</h2>
+            </div>
+            <div class="admin-topbar-right">
+                <span>{{ current_user.username }}</span>
+                <a href="{{ url_for('auth.logout') }}">Logout</a>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="admin-content">
+            {% block admin_content %}
+            <!-- Stats -->
+            <div class="admin-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Quotes</div>
+                    <div class="stat-value">{{ total_quotes|default(0) }}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Today's Quotes</div>
+                    <div class="stat-value">{{ today_quotes|default(0) }}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Case Studies</div>
+                    <div class="stat-value">{{ total_cases|default(0) }}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">News Articles</div>
+                    <div class="stat-value">{{ total_news|default(0) }}</div>
+                </div>
+            </div>
+
+            <!-- Recent + Actions -->
+            <div class="admin-card-grid">
+                <div class="admin-card">
+                    <h4>Recent Quotes</h4>
+                    {% if recent_quotes %}
+                    <table class="admin-table" style="border: none;">
+                        <thead>
+                            <tr><th>Name</th><th>Service</th><th>Date</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for q in recent_quotes %}
+                            <tr>
+                                <td>{{ q.name }}</td>
+                                <td>{{ q.service_type }}</td>
+                                <td>{{ q.created_at.strftime('%m/%d') }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p style="color: #999; font-size: 0.9rem;">No quotes yet.</p>
+                    {% endif %}
+                </div>
+                <div class="admin-card">
+                    <h4>Quick Actions</h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <a href="{{ url_for('admin.manage_cases') }}"    class="btn-admin btn-admin-primary">Add Case Study</a>
+                        <a href="{{ url_for('admin.manage_news') }}"     class="btn-admin btn-admin-primary">Add News Article</a>
+                        <a href="{{ url_for('admin.manage_products') }}" class="btn-admin btn-admin-primary">Add Product</a>
+                        <a href="{{ url_for('admin.view_quotes') }}"     class="btn-admin btn-admin-primary">Manage Quotes</a>
+                        <a href="{{ url_for('admin.manage_settings') }}" class="btn-admin btn-admin-primary">Edit Settings</a>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}

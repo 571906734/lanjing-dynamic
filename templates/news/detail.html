@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - News - {{ super() }}{% endblock %}
+{% block meta_description %}{{ article.summary[:160] if article.summary else article.title }}{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+    <div class="container">
+        <h1>{{ article.title }}</h1>
+        <p>Published on {{ article.published_at.strftime('%B %d, %Y') if article.published_at else 'Draft' }}</p>
+    </div>
+</section>
+
+<section class="container">
+    <article style="max-width: 800px; margin: 0 auto; padding: 40px 0;">
+        {% if article.summary %}
+        <div style="background: #f8f9fa; border-left: 4px solid #1a3a5c; padding: 20px 24px; margin-bottom: 30px; border-radius: 8px;">
+            <p style="font-style: italic; color: #555;">{{ article.summary }}</p>
+        </div>
+        {% endif %}
+
+        <div style="line-height: 1.8; font-size: 1.1rem;">
+            {{ article.content|safe if article.content else '<p>Content coming soon...</p>' }}
+        </div>
+
+        <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid #e0e0e0;">
+            <p><strong>Share this article:</strong></p>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button style="background: #1a3a5c; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">LinkedIn</button>
+                <button style="background: #e67e22; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Email</button>
+            </div>
+        </div>
+    </article>
+</section>
+{% endblock %}

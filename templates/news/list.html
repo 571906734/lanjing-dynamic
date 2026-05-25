@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}News & Resources - {{ super() }}{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+    <div class="container">
+        <h1>News & Resources</h1>
+        <p>Latest updates, industry insights, and technical resources from LanJing Ship Service.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="news-grid">
+        {% for article in articles %}
+        <div class="news-card">
+            <div class="news-card-thumb" style="background: linear-gradient(135deg, #1a3a5c, #2a5a8c); color: #fff; padding: 40px 30px; font-size: 1.1rem;">
+                {{ article.title[:30] }}...
+            </div>
+            <div class="news-card-body">
+                <div class="news-date">{{ article.published_at.strftime('%b %d, %Y') if article.published_at else 'Draft' }}</div>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.summary[:150] if article.summary else article.content[:150] if article.content else 'Read more...' }}</p>
+                <a href="{{ url_for('news.news_detail', slug=article.slug) }}" class="btn btn-dark">Read More</a>
+            </div>
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 60px; color: #666;">
+            <h3>No news articles yet</h3>
+            <p>Check back soon for updates and industry insights.</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

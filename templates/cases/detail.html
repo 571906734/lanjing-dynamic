@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ case.title }} - Case Studies - {{ super() }}{% endblock %}
+{% block meta_description %}{{ case.scope[:160] if case.scope else case.title }}{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+    <div class="container">
+        <h1>{{ case.title }}</h1>
+        <p>{{ case.service_type or 'Case Study' }}</p>
+    </div>
+</section>
+
+<section class="container">
+    <article class="case-detail" style="max-width: 900px; margin: 0 auto; padding: 40px 0;">
+        {% if case.client_name %}
+        <div style="background: #f8f9fa; border-radius: 8px; padding: 24px; margin-bottom: 30px;">
+            <p><strong>Client:</strong> {{ case.client_name }}</p>
+            <p><strong>Service Type:</strong> {{ case.service_type }}</p>
+        </div>
+        {% endif %}
+
+        {% if case.scope %}
+        <h2>Project Scope</h2>
+        <p style="line-height: 1.8; margin-bottom: 30px;">{{ case.scope }}</p>
+        {% endif %}
+
+        {% if case.challenge %}
+        <h2 style="color: #e67e22;">The Challenge</h2>
+        <p style="line-height: 1.8; margin-bottom: 30px;">{{ case.challenge }}</p>
+        {% endif %}
+
+        {% if case.solution %}
+        <h2 style="color: #1a3a5c;">Our Solution</h2>
+        <p style="line-height: 1.8; margin-bottom: 30px;">{{ case.solution }}</p>
+        {% endif %}
+
+        {% if case.results %}
+        <h2 style="color: #27ae60;">Results</h2>
+        <div style="background: #f0faf4; border-left: 4px solid #27ae60; padding: 20px 24px; border-radius: 8px; line-height: 1.8;">{{ case.results }}</div>
+        {% endif %}
+
+        <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid #e0e0e0; text-align: center;">
+            <p>Interested in a similar solution for your project?</p>
+            <a href="{{ url_for('quote.request_quote') }}" class="btn btn-primary">Request Quote</a>
+        </div>
+    </article>
+</section>
+{% endblock %}

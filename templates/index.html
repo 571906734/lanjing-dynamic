@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block title %}Home - {{ super() }}{% endblock %}
+
+{% block content %}
+<section class="hero-banner">
+    <div class="hero-slide active hero-bg-1">
+        <div class="hero-content">
+            <h1>Marine Supply & <span>Technical Solutions</span></h1>
+            <p>Your trusted partner for comprehensive marine equipment supply, technical solutions and ship services in Indonesia.</p>
+            <a href="{{ url_for('services.supply') }}" class="btn btn-primary">Explore Our Services</a>
+        </div>
+    </div>
+    <div class="hero-slide hero-bg-2">
+        <div class="hero-content">
+            <h1>SPS Shore Power <span>System</span></h1>
+            <p>Patented static frequency converter technology, reducing fuel consumption by 20%+ while ships are docked.</p>
+            <a href="{{ url_for('services.technical') }}" class="btn btn-primary">Learn About SPS</a>
+        </div>
+    </div>
+    <div class="hero-slide hero-bg-3">
+        <div class="hero-content">
+            <h1>30+ Product Lines <span>Global Network</span></h1>
+            <p>From piping systems to automation, we provide integrated solutions for shipyards and marine operations.</p>
+            <a href="{{ url_for('quote.request_quote') }}" class="btn btn-primary">Request Quote</a>
+        </div>
+    </div>
+    <div class="hero-indicators">
+        <button class="hero-indicator active"></button>
+        <button class="hero-indicator"></button>
+        <button class="hero-indicator"></button>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Our Core Services</h2>
+        <p>Comprehensive solutions covering all aspects of marine equipment and technical support.</p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">⚓</div>
+            <h3>Marine Equipment Supply</h3>
+            <p>Complete range of piping systems, electrical equipment, fire & safety, deck equipment, and more.</p>
+            <a href="{{ url_for('services.supply') }}" class="btn btn-dark">View Products</a>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🔌</div>
+            <h3>SPS Shore Power</h3>
+            <p>Patented static frequency converter technology for ships at berth, reducing emissions and fuel costs.</p>
+            <a href="{{ url_for('services.technical') }}" class="btn btn-dark">Learn More</a>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🛠️</div>
+            <h3>Technical Solutions</h3>
+            <p>Workshop setup, automation integration, system engineering, and consulting services.</p>
+            <a href="{{ url_for('services.technical') }}" class="btn btn-dark">Our Solutions</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number" data-target="2025">0</div>
+                <div class="stat-plus">+</div>
+                <p>Founded</p>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="30">0</div>
+                <div class="stat-plus">+</div>
+                <p>Product Categories</p>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="13">0</div>
+                <div class="stat-plus">+</div>
+                <p>Global Partners</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Latest News & Updates</h2>
+        <p>Stay informed about our latest projects, industry insights, and company announcements.</p>
+    </div>
+    <div class="news-grid">
+        {% for article in latest_news %}
+        <div class="news-card">
+            <div class="news-card-thumb" style="background: linear-gradient(135deg, #1a3a5c, #2a5a8c);">
+                {{ article.title[:30] }}...
+            </div>
+            <div class="news-card-body">
+                <div class="news-date">{{ article.published_at.strftime('%b %d, %Y') if article.published_at else 'Draft' }}</div>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.summary[:120] if article.summary else '' }}...</p>
+                <a href="{{ url_for('news.news_detail', slug=article.slug) }}" class="btn btn-dark">Read More</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="news-card">
+            <div class="news-card-thumb">Check back soon</div>
+            <div class="news-card-body">
+                <h3>Latest Updates Coming</h3>
+                <p>We're preparing our latest projects and industry insights.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Featured Case Studies</h2>
+        <p>See how we've helped clients overcome challenges and achieve their goals.</p>
+    </div>
+    <div class="case-grid">
+        {% for case in featured_cases %}
+        <div class="case-card" data-category="{{ case.service_type|lower if case.service_type else 'all' }}">
+            <div class="case-thumb case-thumb-1">
+                {{ case.client_name or case.title[:30] }}
+            </div>
+            <div class="case-body">
+                <div class="case-tag">{{ case.service_type or 'Case Study' }}</div>
+                <h3>{{ case.title }}</h3>
+                <p>{{ case.scope[:120] if case.scope else 'Read about this successful project...' }}</p>
+                <a href="{{ url_for('cases.case_detail', slug=case.slug) }}" class="btn btn-dark">View Details</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="case-card">
+            <div class="case-thumb case-thumb-1">Coming Soon</div>
+            <div class="case-body">
+                <h3>Projects In Progress</h3>
+                <p>We're documenting our successful projects. Check back soon!</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="quote-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Quick Quote Request</h2>
+            <p>Get a personalized quote for your marine equipment or technical service needs.</p>
+        </div>
+        <form class="quote-form" action="{{ url_for('quote.request_quote') }}" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company *</label>
+                    <input type="text" id="company" name="company" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="service_type">Service Type *</label>
+                    <select id="service_type" name="service_type" required>
+                        <option value="">Select a service</option>
+                        <option>Marine Supply</option>
+                        <option>SPS Shore Power</option>
+                        <option>Technical Solution</option>
+                        <option>Workshop Setup</option>
+                        <option>Automation</option>
+                        <option>System Integration</option>
+                        <option>Consulting</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location *</label>
+                    <input type="text" id="location" name="location" placeholder="City, Country" required>
+                </div>
+            </div>
+            <div class="form-row single">
+                <div class="form-group">
+                    <label for="requirements">Requirements *</label>
+                    <textarea id="requirements" name="requirements" rows="4" required></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Quote Request</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

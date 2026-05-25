@@ -1,0 +1,61 @@
+{% extends "admin/dashboard.html" %}
+
+{% block admin_title %}Quotes{% endblock %}
+
+{% block admin_content %}
+<div class="admin-page-header">
+    <h3>Quote Requests</h3>
+    <div style="display: flex; gap: 10px;">
+        <span class="stat-badge">{{ total_quotes }} Total</span>
+        <span class="stat-badge badge-primary">{{ new_quotes }} New</span>
+        <span class="stat-badge badge-warning">{{ pending_quotes }} Pending</span>
+        <span class="stat-badge badge-success">{{ completed_quotes }} Completed</span>
+    </div>
+</div>
+
+<div class="admin-table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Service</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quote in quotes %}
+            <tr>
+                <td>#{{ quote.id }}</td>
+                <td>{{ quote.name }}</td>
+                <td>{{ quote.company }}</td>
+                <td>{{ quote.service_type }}</td>
+                <td>
+                    <form action="{{ url_for('admin.update_quote', quote_id=quote.id) }}" method="post" style="display: inline;">
+                        <select name="status" onchange="this.form.submit()" style="padding: 4px 8px; border: 1px solid #d0d0d0; border-radius: 4px; font-size: 0.82rem; color: #555; background: #fff;">
+                            <option value="new" {% if quote.status == 'new' %}selected{% endif %}>New</option>
+                            <option value="pending" {% if quote.status == 'pending' %}selected{% endif %}>Pending</option>
+                            <option value="quoted" {% if quote.status == 'quoted' %}selected{% endif %}>Quoted</option>
+                            <option value="completed" {% if quote.status == 'completed' %}selected{% endif %}>Completed</option>
+                        </select>
+                    </form>
+                </td>
+                <td>{{ quote.created_at.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    <form action="{{ url_for('admin.delete_quote', quote_id=quote.id) }}" method="post" style="display: inline;">
+                        <button type="submit" class="btn-admin-link btn-admin-link-danger" onclick="return confirm('Delete this quote?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 40px; color: #999;">No quote requests found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

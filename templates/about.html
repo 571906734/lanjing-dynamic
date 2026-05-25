@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - {{ super() }}{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+    <div class="container">
+        <h1>About LanJing Ship Service</h1>
+        <p>{{ site_settings.company_slogan|default('Sincere service, innovative communication, mutual success.') }}</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="about-intro-grid">
+        <div class="about-text">
+            <h2>Our Story</h2>
+            <p>Founded in 2025, LanJing Ship Service emerged as a dedicated partner for the maritime industry, with a focus on the Indonesian market. Our name "LanJing" reflects our commitment to blue ocean (Lan) and precision (Jing) in service.</p>
+            <p>Based in Anqing City, Anhui Province -- a historical hub of shipbuilding in China -- we combine local expertise with global standards to deliver comprehensive marine equipment supply and technical solutions.</p>
+            <p>Our mission is to bridge the gap between advanced marine technology and practical operational needs, ensuring our clients receive reliable, efficient, and cost-effective solutions.</p>
+        </div>
+        <div class="about-visual">
+            <div>Maritime Excellence Since 2025</div>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Our Core Advantages</h2>
+        <p>What sets us apart in the marine service industry</p>
+    </div>
+    <div class="advantages-grid">
+        <div class="advantage-card">
+            <div class="adv-icon">R</div>
+            <h3>Technological Innovation</h3>
+            <p>Patented SPS shore power system and advanced automation solutions.</p>
+        </div>
+        <div class="advantage-card">
+            <div class="adv-icon">L</div>
+            <h3>Integrated Supply Chain</h3>
+            <p>Direct access to 30+ product categories from leading manufacturers.</p>
+        </div>
+        <div class="advantage-card">
+            <div class="adv-icon">T</div>
+            <h3>Precision Operation</h3>
+            <p>Meticulous project management and quality control at every stage.</p>
+        </div>
+        <div class="advantage-card">
+            <div class="adv-icon">G</div>
+            <h3>Global Network</h3>
+            <p>Strong partnerships across China, Indonesia, and key maritime regions.</p>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Our Journey</h2>
+        <p>Key milestones in our development</p>
+    </div>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <h4>Q1 2025</h4>
+                <p>Company founded in Anqing, China. Established core team and initial supplier partnerships.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <h4>Q2 2025</h4>
+                <p>Launched marine supply division with 8 product categories. Secured first Indonesian clients.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <h4>Q3 2025</h4>
+                <p>Introduced SPS shore power system. Expanded product lines to 20+ categories.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <h4>Q4 2025</h4>
+                <p>Established Jakarta office. Reached 30+ product categories and 13+ global partners.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Standards & Certifications</h2>
+        <p>We adhere to international maritime standards</p>
+    </div>
+    <div class="cert-grid">
+        <div class="cert-item">SOLAS</div>
+        <div class="cert-item">IEC</div>
+        <div class="cert-item">CCS</div>
+        <div class="cert-item">BV</div>
+        <div class="cert-item">ABS</div>
+        <div class="cert-item">DNV</div>
+        <div class="cert-item">LR</div>
+        <div class="cert-item">IMO</div>
+    </div>
+</section>
+{% endblock %}

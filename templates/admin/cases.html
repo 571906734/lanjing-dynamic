@@ -1,0 +1,99 @@
+{% extends "admin/dashboard.html" %}
+
+{% block admin_title %}Cases{% endblock %}
+
+{% block admin_content %}
+<div class="admin-page-header">
+    <h3>Case Studies</h3>
+    <button type="button" class="btn-admin btn-admin-primary" onclick="toggleForm('case-form')">+ Add New</button>
+</div>
+
+{% set editing = edit_case is defined and edit_case %}
+<div id="case-form" class="admin-form-card" style="display: {{ 'block' if editing else 'none' }};">
+    <h4 style="margin-top:0;">{{ 'Edit Case Study' if editing else 'New Case Study' }}</h4>
+    <form method="post" action="{{ url_for('admin.manage_cases', case_id=edit_case.id) if editing else url_for('admin.manage_cases') }}">
+        <div class="form-row">
+            <div class="form-group" style="flex:2;">
+                <label>Title *</label>
+                <input type="text" name="title" value="{{ edit_case.title if editing else '' }}" required>
+            </div>
+            <div class="form-group" style="flex:1;">
+                <label>Slug</label>
+                <input type="text" name="slug" value="{{ edit_case.slug if editing else '' }}" placeholder="auto-generated">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group" style="flex:1;">
+                <label>Client Name</label>
+                <input type="text" name="client_name" value="{{ edit_case.client_name if editing else '' }}">
+            </div>
+            <div class="form-group" style="flex:1;">
+                <label>Service Type</label>
+                <input type="text" name="service_type" value="{{ edit_case.service_type if editing else '' }}">
+            </div>
+            <div class="form-group" style="flex:0 0 auto; align-self: center; padding-top: 18px;">
+                <label style="display:flex;align-items:center;gap:6px;font-weight:400;">
+                    <input type="checkbox" name="is_featured" {{ 'checked' if editing and edit_case.is_featured else '' }}>
+                    Featured
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Scope</label>
+            <input type="text" name="scope" value="{{ edit_case.scope if editing else '' }}">
+        </div>
+        <div class="form-group">
+            <label>Challenge</label>
+            <textarea name="challenge" rows="3">{{ edit_case.challenge if editing else '' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Solution</label>
+            <textarea name="solution" rows="3">{{ edit_case.solution if editing else '' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Results</label>
+            <textarea name="results" rows="3">{{ edit_case.results if editing else '' }}</textarea>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-admin btn-admin-primary">{{ 'Update' if editing else 'Create' }}</button>
+            <button type="button" class="btn-admin btn-admin-secondary" onclick="toggleForm('case-form')">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div class="admin-table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Client</th>
+                <th>Service</th>
+                <th>Featured</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for case in cases %}
+            <tr>
+                <td><strong>{{ case.title }}</strong></td>
+                <td>{{ case.client_name or '-' }}</td>
+                <td><span class="badge badge-info">{{ case.service_type or 'General' }}</span></td>
+                <td>{% if case.is_featured %}Yes{% else %}No{% endif %}</td>
+                <td>{{ case.created_at.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    <a href="{{ url_for('admin.manage_cases', case_id=case.id) }}" class="btn-admin-link">Edit</a>
+                    <form action="{{ url_for('admin.delete_case', case_id=case.id) }}" method="post" style="display: inline;">
+                        <button type="submit" class="btn-admin-link btn-admin-link-danger" onclick="return confirm('Delete this case?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 40px; color: #999;">No case studies found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

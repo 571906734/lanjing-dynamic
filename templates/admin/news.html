@@ -1,0 +1,85 @@
+{% extends "admin/dashboard.html" %}
+
+{% block admin_title %}News{% endblock %}
+
+{% block admin_content %}
+<div class="admin-page-header">
+    <h3>News &amp; Articles</h3>
+    <button type="button" class="btn-admin btn-admin-primary" onclick="toggleForm('news-form')">+ Add New</button>
+</div>
+
+{% set editing = edit_article is defined and edit_article %}
+<div id="news-form" class="admin-form-card" style="display: {{ 'block' if editing else 'none' }};">
+    <h4 style="margin-top:0;">{{ 'Edit Article' if editing else 'New Article' }}</h4>
+    <form method="post" action="{{ url_for('admin.manage_news', article_id=edit_article.id) if editing else url_for('admin.manage_news') }}">
+        <div class="form-row">
+            <div class="form-group" style="flex:2;">
+                <label>Title *</label>
+                <input type="text" name="title" value="{{ edit_article.title if editing else '' }}" required>
+            </div>
+            <div class="form-group" style="flex:1;">
+                <label>Slug</label>
+                <input type="text" name="slug" value="{{ edit_article.slug if editing else '' }}" placeholder="auto-generated">
+            </div>
+            <div class="form-group" style="flex:0 0 auto; align-self: center; padding-top: 18px;">
+                <label style="display:flex;align-items:center;gap:6px;font-weight:400;">
+                    <input type="checkbox" name="is_published" {{ 'checked' if editing and edit_article.is_published else '' }}>
+                    Publish
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Summary</label>
+            <textarea name="summary" rows="2">{{ edit_article.summary if editing else '' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Content</label>
+            <textarea name="content" rows="8">{{ edit_article.content if editing else '' }}</textarea>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-admin btn-admin-primary">{{ 'Update' if editing else 'Create' }}</button>
+            <button type="button" class="btn-admin btn-admin-secondary" onclick="toggleForm('news-form')">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div class="admin-table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Published</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+            <tr>
+                <td><strong>{{ article.title }}</strong></td>
+                <td>
+                    {% if article.is_published %}
+                    <span class="badge badge-published">Published</span>
+                    {% else %}
+                    <span class="badge badge-draft">Draft</span>
+                    {% endif %}
+                </td>
+                <td>{{ article.published_at.strftime('%Y-%m-%d') if article.published_at else '-' }}</td>
+                <td>{{ article.created_at.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    <a href="{{ url_for('admin.manage_news', article_id=article.id) }}" class="btn-admin-link">Edit</a>
+                    <form action="{{ url_for('admin.delete_news', article_id=article.id) }}" method="post" style="display: inline;">
+                        <button type="submit" class="btn-admin-link btn-admin-link-danger" onclick="return confirm('Delete this article?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="text-align: center; padding: 40px; color: #999;">No articles found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

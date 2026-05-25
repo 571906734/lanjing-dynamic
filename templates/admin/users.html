@@ -1,0 +1,53 @@
+{% extends "admin/dashboard.html" %}
+
+{% block admin_title %}Users{% endblock %}
+
+{% block admin_content %}
+<div class="admin-page-header">
+    <h3>Admin Users</h3>
+    <a href="{{ url_for('admin.add_user') }}" class="btn-admin btn-admin-primary">+ Add Admin</a>
+</div>
+
+<div class="admin-table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td><strong>{{ user.username }}</strong></td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if user.is_admin %}
+                    <span class="badge badge-primary">Admin</span>
+                    {% else %}
+                    <span class="badge">User</span>
+                    {% endif %}
+                </td>
+                <td>{{ user.created_at.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    {% if user.id != current_user.id %}
+                    <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="post" style="display: inline;">
+                        <button type="submit" class="btn-admin-link btn-admin-link-danger" onclick="return confirm('Delete user {{ user.username }}?')">Delete</button>
+                    </form>
+                    {% else %}
+                    <span style="color: #999; font-size: 0.82rem;">You</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="text-align: center; padding: 40px; color: #999;">No users found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

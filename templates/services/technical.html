@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Technical Solutions - {{ super() }}{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+    <div class="container">
+        <h1>Technical Solutions</h1>
+        <p>Advanced engineering, automation, and specialized services for the maritime industry.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="sps-highlight" style="background: linear-gradient(135deg, #1a3a5c 0%, #0d1f33 100%); color: #fff; padding: 50px 40px; border-radius: 12px; margin: 40px 0; text-align: center;">
+        <div class="sps-badge" style="display: inline-block; background: #e67e22; padding: 6px 20px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px;">Patented Technology</div>
+        <h3 style="font-size: 2rem; color: #fff; margin-bottom: 16px;">SPS Shore Power System</h3>
+        <p style="max-width: 800px; margin: 0 auto 20px; line-height: 1.8; color: rgba(255,255,255,0.85);">Our flagship Static Frequency Converter (SFC) technology enables ships to connect to shore power while docked, reducing fuel consumption by 20%+ and significantly lowering emissions.</p>
+        <p style="color: #e67e22; font-weight: 600; margin-bottom: 24px;">Key Benefits:</p>
+        <ul style="list-style: none; max-width: 600px; margin: 0 auto 24px; color: rgba(255,255,255,0.85); line-height: 2;">
+            <li>Fuel cost savings during port stays</li>
+            <li>Reduced greenhouse gas emissions</li>
+            <li>Lower maintenance costs for ship generators</li>
+            <li>Compliance with port environmental regulations</li>
+        </ul>
+        <a href="{{ url_for('quote.request_quote') }}" class="btn btn-primary" style="background: #e67e22;">Request SPS Quote</a>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Our Technical Solutions</h2>
+        <p>Comprehensive engineering and technical services</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 30px; border-top: 4px solid #1a3a5c;">
+            <h3>Workshop Setup & Optimization</h3>
+            <p>Design and establish complete welding, cutting, machining, and assembly workshops for shipyards and repair facilities.</p>
+            <ul style="line-height: 2; padding-left: 20px;">
+                <li>CNC cutting machine installation</li>
+                <li>Welding robot integration</li>
+                <li>Blasting & painting facilities</li>
+                <li>Material handling systems</li>
+            </ul>
+        </div>
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 30px; border-top: 4px solid #e67e22;">
+            <h3>Automation & Robotics</h3>
+            <p>Implement automated systems for improved efficiency, precision, and safety in marine operations.</p>
+            <ul style="line-height: 2; padding-left: 20px;">
+                <li>Robotic welding & cutting</li>
+                <li>Automated material handling</li>
+                <li>Process control systems</li>
+                <li>Quality inspection automation</li>
+            </ul>
+        </div>
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 30px; border-top: 4px solid #1a3a5c;">
+            <h3>System Integration</h3>
+            <p>Seamless integration of electrical, mechanical, and control systems for optimal performance.</p>
+            <ul style="line-height: 2; padding-left: 20px;">
+                <li>Power distribution systems</li>
+                <li>Control & monitoring networks</li>
+                <li>Communication systems</li>
+                <li>Safety & alarm systems</li>
+            </ul>
+        </div>
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 30px; border-top: 4px solid #e67e22;">
+            <h3>Engineering Consulting</h3>
+            <p>Expert guidance on marine engineering projects, from design to implementation.</p>
+            <ul style="line-height: 2; padding-left: 20px;">
+                <li>Feasibility studies</li>
+                <li>Technical specifications</li>
+                <li>Project management</li>
+                <li>Commissioning support</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Technical Success Stories</h2>
+        <p>Real-world applications of our technical solutions</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px;">
+        <div style="background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
+            <div style="background: linear-gradient(135deg, #1a3a5c, #2a5a8c); color: #fff; padding: 40px 30px; font-size: 1.1rem;">DDW Pertama</div>
+            <div style="padding: 24px;">
+                <div style="background: #e67e22; color: #fff; display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; margin-bottom: 12px;">SPS Installation</div>
+                <h3>SPS Shore Power at Drydocks World</h3>
+                <p>Installed our patented SPS system at DDW Pertama shipyard, enabling multiple vessels to connect to shore power simultaneously.</p>
+            </div>
+        </div>
+        <div style="background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
+            <div style="background: linear-gradient(135deg, #e67e22, #f39c12); color: #fff; padding: 40px 30px; font-size: 1.1rem;">Keppel</div>
+            <div style="padding: 24px;">
+                <div style="background: #1a3a5c; color: #fff; display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; margin-bottom: 12px;">Workshop Setup</div>
+                <h3>Complete Workshop for Keppel</h3>
+                <p>Designed and equipped a full-service welding and fabrication workshop with automated cutting and robotic welding systems.</p>
+            </div>
+        </div>
+        <div style="background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
+            <div style="background: linear-gradient(135deg, #2c3e50, #34495e); color: #fff; padding: 40px 30px; font-size: 1.1rem;">Wärtsilä</div>
+            <div style="padding: 24px;">
+                <div style="background: #e67e22; color: #fff; display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; margin-bottom: 12px;">Automation</div>
+                <h3>Frequency Converter Integration</h3>
+                <p>Integrated Wärtsilä frequency converters with existing power systems for improved efficiency and control.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,10 @@
+#!/bin/sh
+'''exec' "/Users/raymond/Library/Application Support/com.tencent.mac.marvis/MarvisData/User/oAN1i2Q-4QTK5fcDctSPI8dCscP4/workspace/conv_19e5814c85a_b4dd4b64bafd/output/lanjing-dynamic/venv/bin/python3" "$0" "$@"
+' '''
+# -*- coding: utf-8 -*-
+import re
+import sys
+from flask.cli import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())

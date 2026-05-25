@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Marine Supply - {{ super() }}{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+    <div class="container">
+        <h1>Marine Equipment Supply</h1>
+        <p>Comprehensive range of marine products and equipment for shipyards, vessels, and offshore operations.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Product Categories</h2>
+        <p>Browse our extensive range of marine equipment by category</p>
+    </div>
+    <div class="product-categories">
+        {% for category in categories %}
+        <div class="accordion-item">
+            <button class="accordion-header">
+                {{ category.name }}
+                <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-body">
+                <div class="accordion-body-inner">
+                    <p>{{ category.description or 'Comprehensive range of products in this category.' }}</p>
+                    {% set cat_products = products|selectattr('category_id', 'equalto', category.id)|list %}
+                    {% if cat_products %}
+                    <h4>Products in this category:</h4>
+                    <ul>
+                        {% for product in cat_products %}
+                        <li><strong>{{ product.name }}</strong> - {{ product.description[:100] if product.description else 'Product details available' }}...</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Piping Systems
+                <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-body">
+                <div class="accordion-body-inner">
+                    <p>Alloy steel pipes, stainless steel pipes, GRE/GRP pipes, UPVC pipes, and related fittings.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Electrical Systems
+                <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-body">
+                <div class="accordion-body-inner">
+                    <p>Marine cables, transformers, air circuit breakers, generators, frequency converters, load banks, lighting.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Fire & Safety
+                <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-body">
+                <div class="accordion-body-inner">
+                    <p>Fire detection systems, extinguishers, life-saving equipment, personal protective equipment.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Welding & Cutting
+                <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-body">
+                <div class="accordion-body-inner">
+                    <p>Welding machines, CNC cutting machines, workshop machinery, blasting robots.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Deck Equipment
+                <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-body">
+                <div class="accordion-body-inner">
+                    <p>Aluminum gangways, scaffolding, lifting equipment, fenders, hydraulic power units.</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Key Indonesian Ports We Serve</h2>
+        <p>Strategic locations across the Indonesian archipelago</p>
+    </div>
+    <div class="port-grid">
+        <div class="port-item">Jakarta</div>
+        <div class="port-item">Surabaya</div>
+        <div class="port-item">Batam</div>
+        <div class="port-item">Bali</div>
+        <div class="port-item">Makassar</div>
+        <div class="port-item">Balikpapan</div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Our Partner Brands</h2>
+        <p>Quality products from trusted manufacturers worldwide</p>
+    </div>
+    <div class="partners-scroll">
+        <div class="partners-track">
+            <div class="partner-item">Wärtsilä</div>
+            <div class="partner-item">ABB</div>
+            <div class="partner-item">Siemens</div>
+            <div class="partner-item">Schneider</div>
+            <div class="partner-item">Yaskawa</div>
+            <div class="partner-item">Lincoln Electric</div>
+            <div class="partner-item">ESAB</div>
+            <div class="partner-item">Kuka</div>
+            <div class="partner-item">FANUC</div>
+            <div class="partner-item">Mitsubishi</div>
+            <div class="partner-item">Hyundai</div>
+            <div class="partner-item">Doosan</div>
+        </div>
+    </div>
+</section>
+{% endblock %}

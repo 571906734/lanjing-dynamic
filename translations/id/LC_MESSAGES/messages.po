@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LanJing Ship Service\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-01-01 00:00+0000\n"
+"Last-Translator: LanJing Team <noreply@lanjing.com>\n"
+"Language-Team: Indonesian <id@lanjing.com>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Home"
+msgstr "Beranda"
+
+msgid "About"
+msgstr "Tentang"
+
+msgid "Services"
+msgstr "Layanan"
+
+msgid "Case Studies"
+msgstr "Studi Kasus"
+
+msgid "News & Resources"
+msgstr "Berita & Sumber Daya"
+
+msgid "Request Quote"
+msgstr "Minta Penawaran"
+
+msgid "Contact"
+msgstr "Kontak"
+
+msgid "Login"
+msgstr "Masuk"
+
+msgid "Marine Equipment Supply"
+msgstr "Pasokan Peralatan Kelautan"
+
+msgid "Technical Solutions"
+msgstr "Solusi Teknis"
+
+msgid "Sincere service, innovative communication, mutual success."
+msgstr "Layanan tulus, komunikasi inovatif, kesuksesan bersama."
+
+msgid "Your trusted partner for comprehensive marine equipment supply, technical solutions and ship services in Indonesia."
+msgstr "Mitra terpercaya Anda untuk pasokan peralatan kelautan, solusi teknis, dan layanan kapal di Indonesia."
+
+msgid "Patented static frequency converter technology, reducing fuel consumption by 20%+ while ships are docked."
+msgstr "Teknologi konverter frekuensi statis yang dipatenkan, mengurangi konsumsi bahan bakar 20%+ saat kapal berlabuh."
+
+msgid "From piping systems to automation, we provide integrated solutions for shipyards and marine operations."
+msgstr "Dari sistem perpipaan hingga otomatisasi, kami menyediakan solusi terintegrasi untuk galangan kapal dan operasi kelautan."
+
+msgid "Get a personalized quote for your marine equipment or technical service needs."
+msgstr "Dapatkan penawaran yang dipersonalisasi untuk kebutuhan peralatan kelautan atau layanan teknis Anda."

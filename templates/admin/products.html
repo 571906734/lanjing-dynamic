@@ -1,0 +1,145 @@
+{% extends "admin/dashboard.html" %}
+
+{% block admin_title %}Products{% endblock %}
+
+{% block admin_content %}
+<div class="admin-page-header">
+    <h3>Categories</h3>
+    {% set editing_cat = edit_category is defined and edit_category %}
+    <button type="button" class="btn-admin btn-admin-primary" onclick="toggleForm('category-form')">+ Add Category</button>
+</div>
+
+<div id="category-form" class="admin-form-card" style="display: {{ 'block' if editing_cat else 'none' }};">
+    <h4 style="margin-top:0;">{{ 'Edit Category' if editing_cat else 'New Category' }}</h4>
+    <form method="post" action="{{ url_for('admin.edit_category', cat_id=edit_category.id) if editing_cat else url_for('admin.manage_categories') }}">
+        <div class="form-row">
+            <div class="form-group" style="flex:2;">
+                <label>Name *</label>
+                <input type="text" name="name" value="{{ edit_category.name if editing_cat else '' }}" required>
+            </div>
+            <div class="form-group" style="flex:1;">
+                <label>Slug</label>
+                <input type="text" name="slug" value="{{ edit_category.slug if editing_cat else '' }}" placeholder="auto-generated">
+            </div>
+            <div class="form-group" style="flex:0 0 auto; align-self: center; padding-top: 18px;">
+                <label style="display:flex;align-items:center;gap:6px;font-weight:400;">
+                    <input type="checkbox" name="is_active" {{ 'checked' if editing_cat and edit_category.is_active else 'checked' }}>
+                    Active
+                </label>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-admin btn-admin-primary">{{ 'Update' if editing_cat else 'Create' }}</button>
+            <button type="button" class="btn-admin btn-admin-secondary" onclick="toggleForm('category-form')">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div class="admin-table-container" style="margin-bottom: 28px;">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Slug</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td><strong>{{ category.name }}</strong></td>
+                <td>{{ category.slug }}</td>
+                <td>{% if category.is_active %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <a href="{{ url_for('admin.edit_category', cat_id=category.id) }}" class="btn-admin-link">Edit</a>
+                    <form action="{{ url_for('admin.delete_category', cat_id=category.id) }}" method="post" style="display: inline;">
+                        <button type="submit" class="btn-admin-link btn-admin-link-danger" onclick="return confirm('Delete this category?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" style="text-align: center; padding: 40px; color: #999;">No categories found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="admin-page-header">
+    <h3>Products</h3>
+    {% set editing_prod = edit_product is defined and edit_product %}
+    <button type="button" class="btn-admin btn-admin-primary" onclick="toggleForm('product-form')">+ Add Product</button>
+</div>
+
+<div id="product-form" class="admin-form-card" style="display: {{ 'block' if editing_prod else 'none' }};">
+    <h4 style="margin-top:0;">{{ 'Edit Product' if editing_prod else 'New Product' }}</h4>
+    <form method="post" action="{{ url_for('admin.manage_products', product_id=edit_product.id) if editing_prod else url_for('admin.manage_products') }}">
+        <div class="form-row">
+            <div class="form-group" style="flex:2;">
+                <label>Name *</label>
+                <input type="text" name="name" value="{{ edit_product.name if editing_prod else '' }}" required>
+            </div>
+            <div class="form-group" style="flex:1;">
+                <label>Category</label>
+                <select name="category_id">
+                    {% for cat in categories %}
+                    <option value="{{ cat.id }}" {{ 'selected' if editing_prod and edit_product.category_id == cat.id else '' }}>{{ cat.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group" style="flex:0 0 auto; align-self: center; padding-top: 18px;">
+                <label style="display:flex;align-items:center;gap:6px;font-weight:400;">
+                    <input type="checkbox" name="is_active" {{ 'checked' if editing_prod and edit_product.is_active else 'checked' }}>
+                    Active
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" rows="3">{{ edit_product.description if editing_prod else '' }}</textarea>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-admin btn-admin-primary">{{ 'Update' if editing_prod else 'Create' }}</button>
+            <button type="button" class="btn-admin btn-admin-secondary" onclick="toggleForm('product-form')">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div class="admin-table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td><strong>{{ product.name }}</strong></td>
+                <td>
+                    {% for cat in categories %}
+                    {% if cat.id == product.category_id %}{{ cat.name }}{% endif %}
+                    {% endfor %}
+                </td>
+                <td>{% if product.is_active %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <a href="{{ url_for('admin.manage_products', product_id=product.id) }}" class="btn-admin-link">Edit</a>
+                    <form action="{{ url_for('admin.delete_product', product_id=product.id) }}" method="post" style="display: inline;">
+                        <button type="submit" class="btn-admin-link btn-admin-link-danger" onclick="return confirm('Delete this product?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" style="text-align: center; padding: 40px; color: #999;">No products found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

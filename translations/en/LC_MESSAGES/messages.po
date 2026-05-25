@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LanJing Ship Service\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-01-01 00:00+0000\n"
+"Last-Translator: LanJing Team <noreply@lanjing.com>\n"
+"Language-Team: English <en@lanjing.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "About"
+msgstr "About"
+
+msgid "Services"
+msgstr "Services"
+
+msgid "Case Studies"
+msgstr "Case Studies"
+
+msgid "News & Resources"
+msgstr "News & Resources"
+
+msgid "Request Quote"
+msgstr "Request Quote"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Marine Equipment Supply"
+msgstr "Marine Equipment Supply"
+
+msgid "Technical Solutions"
+msgstr "Technical Solutions"
+
+msgid "Sincere service, innovative communication, mutual success."
+msgstr "Sincere service, innovative communication, mutual success."
+
+msgid "Your trusted partner for comprehensive marine equipment supply, technical solutions and ship services in Indonesia."
+msgstr "Your trusted partner for comprehensive marine equipment supply, technical solutions and ship services in Indonesia."
+
+msgid "Patented static frequency converter technology, reducing fuel consumption by 20%+ while ships are docked."
+msgstr "Patented static frequency converter technology, reducing fuel consumption by 20%+ while ships are docked."
+
+msgid "From piping systems to automation, we provide integrated solutions for shipyards and marine operations."
+msgstr "From piping systems to automation, we provide integrated solutions for shipyards and marine operations."
+
+msgid "Get a personalized quote for your marine equipment or technical service needs."
+msgstr "Get a personalized quote for your marine equipment or technical service needs."

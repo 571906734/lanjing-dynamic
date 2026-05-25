@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Case Studies - {{ super() }}{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+    <div class="container">
+        <h1>Case Studies</h1>
+        <p>Real-world projects showcasing our expertise in marine supply and technical solutions.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="filter-tabs" style="display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;">
+        <button class="filter-btn active" data-filter="all">All Cases</button>
+        <button class="filter-btn" data-filter="marine-supply">Marine Supply</button>
+        <button class="filter-btn" data-filter="sps-shore-power">SPS Shore Power</button>
+        <button class="filter-btn" data-filter="technical-solution">Technical Solutions</button>
+        <button class="filter-btn" data-filter="workshop-setup">Workshop Setup</button>
+        <button class="filter-btn" data-filter="automation">Automation</button>
+    </div>
+
+    <div class="case-grid">
+        {% for case in cases %}
+        <div class="case-card" data-category="{{ case.service_type|lower|replace(' ', '-') if case.service_type else 'all' }}">
+            <div class="case-thumb case-thumb-1" style="background: linear-gradient(135deg, #1a3a5c, #2a5a8c); color: #fff; padding: 40px 30px; font-size: 1.1rem;">
+                {{ case.client_name or case.title[:30] }}
+            </div>
+            <div class="case-body">
+                <div class="case-tag">{{ case.service_type or 'Case Study' }}</div>
+                <h3>{{ case.title }}</h3>
+                <p>{{ case.scope[:150] if case.scope else case.challenge[:150] if case.challenge else 'Read about this successful project...' }}</p>
+                <a href="{{ url_for('cases.case_detail', slug=case.slug) }}" class="btn btn-dark">View Details</a>
+            </div>
+        </div>
+        {% else %}
+        <p>No case studies available yet. Check back soon for our project showcases.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.dataset.filter;
+        document.querySelectorAll('.case-card').forEach(card => {
+            if (filter === 'all' || card.dataset.category === filter) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
